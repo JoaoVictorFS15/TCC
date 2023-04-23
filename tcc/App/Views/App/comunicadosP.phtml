@@ -1,0 +1,202 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        
+        <a class="navbar-brand" href="/homeP"><img src="img/internet.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="textoNavbar">
+         <ul class="navbar-nav mr-auto">
+          
+           <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diário</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/diario?pesquisarPor=recuperar">Realizar frequência</a>
+            <a class="dropdown-item" href="/frequenciaP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+          
+          
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conteúdo</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/conteudo?pesquisarPor=recuperar">Cadastrar conteúdo</a>
+               <a class="dropdown-item" href="/visualizarConteudo?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Atividade</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/novaAtividade">Cadastrar atividade</a>
+                <a class="dropdown-item" href="/consultar?acao=recuperar">Consultar</a> 
+              </div>
+            </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Observação</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/observacao?pesquisarPor=recuperar">Realizar observação</a>
+            <a class="dropdown-item" href="/observacaoConsultarP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicar</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/comunicarP?pesquisarPor=recuperar">Realizar</a>
+          </li>
+
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicados</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/comunicadosP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php print_r($this->view->nomePr['nome']) ?></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Professor</a>
+              <a class="dropdown-item" href="/">Sair</a> 
+            </div>
+          </li>
+        </ul>        
+      </div>
+    </div>    
+  </nav>
+</header>
+
+
+<div class="container">
+
+
+
+  <div class="alert alert alert-info alert-dismissible fade show" role="alert">
+  <strong>Atenção!</strong> Você pode responder os comunicados clicando no comunicado desejado.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+  <h4>Comunicados do responsável</h4>
+  <hr/>
+
+  <span id="msg"></span>
+  <span id="conteudo"></span>
+ <div class="table-responsive">
+  <table class=" table table-sm table-hover table-bordered" data-toggle="modal" class="btn btn-primary" style="margin-top: 10px">
+    <thead>
+     <tr style="text-align:center;">
+    
+      <th scope="col">Nome do responsável</th>
+      <th scope="col">Motivo</th>
+      <th scope="col">Reunião</th>
+      <th scope="col">Resposta</th>
+    </tr>
+  </thead>
+
+
+    <?php foreach ($this->view->contatos as $contato) { ?>
+
+  <tbody data-toggle="modal" data-target="#exampleModalLong" >
+    <tr style="text-align:center;" id = "<?php print_r($contato['idContato']); ?>" class="view_data" >
+    <td ><?php print_r($contato['nome'])?></td>
+    <td ><?php print_r($contato['motivo'])?></td>
+    <td >Sim</td> 
+    <td ><?php print_r($contato['resposta'])?></td> 
+  </tr>
+  </tbody>
+    <?php }?>
+</table>
+</div>
+ 
+<div   class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content" value = "<?php $contato['idContato'];?>">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Responder mensagem</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form method="post" id="insert_form">
+        <div >
+          <input class="contato" type="hidden"  name="idContato" value="" >
+          <label for="mensagem">Mensagem:</label>
+          <textarea class="form-control" id="mensagem" name="resposta" rows="3"></textarea>
+        </div>
+        <div>
+          <label for="mensagem">Reunir:</label>
+        </div>
+        <div class="form-check" >
+
+          <input class="form-check-input" type="radio" name="status" id="sim" value="1">
+          <label class="form-check-label" for="aceitar">
+            Sim
+          </label>
+          <div class="form-check-inline">
+          <input class="form-check-input" type="radio" name="status" id="nao" value="2">
+          <label class="form-check-label" for="aceitar">
+            Não
+          </label>
+        </div>
+        </div>
+         <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <input  type="submit" class="btn btn-primary" value="Enviar" >
+    </div>
+      </form>
+      
+    </div>
+
+  </div>
+</div>
+</div> 
+</div>
+
+
+  <script>
+
+
+  
+   
+        $('#insert_form').on('submit', function(event){
+          event.preventDefault();
+          //Receber os dados do formulário
+          var dados = $("#insert_form").serialize();
+          $.post("/comunicadosP?pesquisarPor=responder", dados, function (retorna){
+            if(retorna){
+              //Alerta de cadastro realizado com sucesso
+              $("#msg").html('<div class="alert alert-success" role="alert">Resposta enviada com sucesso! <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>');
+              
+
+              
+
+              //Limpar os campo
+              $('#insert_form')[0].reset();
+              
+              //Fechar a janela modal cadastrar
+              $('#exampleModalLong').modal('hide');
+              
+            }else{
+              
+            }
+            
+          });
+        });
+
+        $(document).ready(function(){
+        $(document).on('click','.view_data', function(){
+          var user_id = $(this).attr("id");
+          //alert(user_id);
+          
+          //Verificar se há valor na variável "user_id".
+          
+              $('#exampleModalLong').modal('show'); 
+              $('.contato').val(user_id);
+         
+          });
+        });
+
+       
+
+        
+    </script>
+

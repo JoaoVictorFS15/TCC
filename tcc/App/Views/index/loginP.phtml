@@ -1,0 +1,38 @@
+
+		<header id="cabecalho">
+		<nav id="menu">
+		</nav>
+		</header>
+
+		<div class="container">
+    		<div class="row">
+    			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+       				<div class="card card-signin my-5">
+       				    <div class="card-body">
+          				   	<h5 class="card-title text-center">Login Professor</h5>
+           					<form method="post" class="form-signin" action="/autenticarP">
+             					<div class="form-label-group">
+               						 <input type="email" id="inputE-mail" class="form-control" placeholder="E-mail" name="email" required autofocus>
+                          <label for="inputE-mail">E-mail</label>
+              					</div>
+
+              					<div class="form-label-group">
+                					<input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="senha" required>
+               						<label for="inputPassword">Senha</label>
+             					</div>
+
+             					<input type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" name="Entrar" value="Entrar">
+                        <a type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" name="Voltar" value="Voltar" onclick="window.location.href='/'">Voltar </a>
+                        <?php if ($this->view->login == 'erro') {?>
+                          <div class="row">
+                            <div class="col">
+                              <span class="text text-danger">*E-mail e ou senha inválido(s).</span>
+                            </div>
+                          </div>
+                        <?php } ?>
+              				</form>
+          				</div>
+        			</div>
+     			</div>
+   			</div>
+ 		</div>

@@ -1,0 +1,154 @@
+﻿<?php
+
+	include_once("conexao.php");
+	session_start();
+
+	 $idUsuarios = $_SESSION['idUsuario'];
+
+	 header('Location:/diario?pesquisarPor=recuperar');
+
+	
+	function importarTurma($conn){
+	
+	
+	function cadastrar($conn){
+		 $idUsuarios = $_SESSION['idUsuario'];
+		
+		$turma;
+
+		if (!empty($_FILES['frequencia'] ['tmp_name'])) {
+			$frequencia  = new DomDocument();
+			$frequencia->load($_FILES['frequencia'] ['tmp_name']);
+			$linhas = $frequencia->getElementsByTagName("Row");
+			$contar = count($linhas);
+			
+		
+		
+		for ($i=0; $i<$contar; $i++){
+			if($i==0){
+				$turma = $linhas[$i]->getElementsByTagName("Data")->item(0)->nodeValue;
+				$turno = $linhas[$i]->getElementsByTagName("Data")->item(1)->nodeValue;
+				//aqui seria onde inseria a turma no banco
+				$inserirT = "INSERT INTO Turma (serie, turno) VALUES ('$turma', '$turno')";
+				$resultado_inserirT = mysqli_query($conn, $inserirT);
+				$i++;
+
+			} 
+			
+			if ($i==1){
+				$i++;
+			}
+				
+			$nome = $linhas[$i]->getElementsByTagName("Data")->item(0)->nodeValue;
+			$matricula = $linhas[$i]->getElementsByTagName("Data")->item(1)->nodeValue;
+			$dataNascimento = $linhas[$i]->getElementsByTagName("Data")->item(2)->nodeValue;
+			
+			//aqui seria onde insere os alunos no banco	
+			
+			$result_usuario = "INSERT INTO aluno (nome, matricula, dataNascimento ) VALUES ('$nome', '$matricula', '$dataNascimento')";
+				$resultado_usuario = mysqli_query($conn, $result_usuario);
+
+			$idAluno = "SELECT idAluno FROM Aluno WHERE matricula = '$matricula'";
+		    $resultadoidAluno = mysqli_query($conn, $idAluno);
+			$auxIdAluno = mysqli_fetch_assoc($resultadoidAluno);
+			$idAlunoFreq = $auxIdAluno["idAluno"];
+			$idTurma = "SELECT idTurma FROM Turma where serie = '$turma'";
+		    $resultadoidTurma = mysqli_query($conn, $idTurma);
+			$auxIdTurma = mysqli_fetch_assoc($resultadoidTurma);
+			$idTurmaFreq = $auxIdTurma["idTurma"];
+
+			$queryFrequencia = "INSERT INTO Frequencia (Aluno_idALuno, Turma_idTurma, presenca, data) VALUES ('$idAlunoFreq', '$idTurmaFreq', 1, '0000-00-00')";
+			$FrequenciaResultado = mysqli_query($conn, $queryFrequencia);
+			// Aqui vai a relação do Professor com a turma. A variavel idTurmaFreq
+
+			$queryProfessorTurma = "INSERT INTO professor_has_turma (Professor_idProfessor, Turma_idTurma) VALUES ( '$idUsuarios', '$idTurmaFreq')";
+			$queryProfessorTurmaResultado = mysqli_query($conn, $queryProfessorTurma);
+
+			echo	"<script> window.alert('Turma Cadastrada'); document.location.href = 'diario?pesquisarPor=recuperar'; </script>"; 
+
+
+	} 
+	}
+	}
+
+	function turmaExiste($conn) {
+
+		
+
+	$turma;
+        if (!empty($_FILES['frequencia'] ['tmp_name'])) {
+                        $frequencia  = new DomDocument();
+                        $frequencia->load($_FILES['frequencia'] ['tmp_name']);
+                        $linhas = $frequencia->getElementsByTagName("Row");
+                        $contar = count($linhas);
+
+
+                        $turma = $linhas[0]->getElementsByTagName("Data")->item(0)->nodeValue;
+                     
+                        }
+
+        $query = "SELECT * FROM Turma";
+        $resultadoquery = mysqli_query($conn, $query);
+        $numero = mysqli_num_rows($resultadoquery);
+        $turmas = array();
+        $existe = false;
+
+        for ($i = 0; $i <$numero; $i++) {
+                $aux = mysqli_fetch_assoc($resultadoquery);
+                $turmas[$i] = $aux["serie"];
+                if ($turmas[$i] == $turma){
+			$existe = true;
+			}
+	}
+
+	if ($existe){
+		echo "teste";
+	} else {
+	cadastrar($conn);
+	}
+
+        		
+	}
+
+
+
+
+	function verificarArquivo($conn){
+		
+	
+
+	$padrao= "/^[0-9]º[A-Z]$/";
+	if (!empty($_FILES['frequencia'] ['tmp_name'])) {
+			$frequencia  = new DomDocument();
+			$frequencia->load($_FILES['frequencia'] ['tmp_name']);
+			$linhas = $frequencia->getElementsByTagName("Row");
+			//var_dump($linhas);
+			$turma = $linhas[0]->getElementsByTagName("Data")->item(0)->nodeValue;
+			
+			if(preg_match($padrao, $turma)){
+			turmaExiste($conn);
+			} else{
+				echo "<script> window.alert('Arquivo inválido'); document.location.href = 'diario?pesquisarPor=recuperar';  </script>";	
+			
+			}
+
+			
+			
+				}}
+
+		
+	verificarArquivo($conn);
+}
+
+
+
+importarTurma($conn);
+//header ("Location: diario.php");
+
+
+
+
+
+
+
+?>

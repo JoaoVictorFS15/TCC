@@ -1,0 +1,122 @@
+<?php
+ini_set('display_errors', 0 );
+error_reporting(0);
+?>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+
+        <a class="navbar-brand" href="homeR.html"><img src="img/internet.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" 
+        aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+       
+
+      <div class="collapse navbar-collapse" id="textoNavbar">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Frequência</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="frequenciaR.html">Consultar</a> 
+            </div>
+          </li>
+
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conteúdo</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="conteudoR.html">Consultar</a>
+            </div>
+          </li>
+
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Atividade</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="consultarR.html">Consultar</a>
+            </div>
+          </li>
+
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicar</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="comunicar.html">Realizar</a>
+            </div>
+          </li>
+        
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicados</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="comunicadosR.html">Consultar</a>
+            </div>
+          </li>
+          
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Observações</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="avisos.html">Consultar</a>
+            </div>
+          </li>
+        </ul>
+
+
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php print_r($this->view->nomePr['nome']) ?></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Responsável</a>
+              <a class="dropdown-item" href="index.html">Sair</a> 
+            </div>
+          </li>
+        </ul>
+
+      </nav>
+    </header>
+   <div class="container">
+      <h4>Pesquisar Atividade</h4>
+      <hr/>
+      <form action="/consultarR" method="get">
+        <div>
+          <label class="labelM">Turma</label>
+          
+        <select class="form-control custom-select-sm" name="acao"  >
+          <option value="" disabled selected>Selecione uma turma.</option>
+          <?php foreach ($this->view->turmas as $turma) { ?>
+          <option  value="<?php print_r ($turma['idTurma']) ?>"><?php print_r($turma['serie'])?></option>
+          <?php }?>
+        </select>
+         <input class="btn btn-primary" value="Pesquisar" type="submit" onclick="mudarEstado('minhaDiv')" style="margin-top: 5px">
+      </form> 
+
+      <div class="table-responsive " style="margin-top: 10px">
+         <h5>Atividades encontradas</h5>
+        <table class=" table table-sm  table-bordered" style="margin-top: 10px">
+        <thead>
+         <tr style="text-align:center;">
+            <th scope="col">Atividade</th>
+            <th scope="col">Data inicial</th>
+            <th scope="col">Data final</th>
+            <th scope="col">Status</th>
+            
+          </tr>
+        </thead>
+        <div style="display: none;" id="minhaDiv" >
+        <?php foreach ($this->view->atividades as  $atividade) {?>
+        <tbody>  
+         <tr style="text-align:center;">
+          <td ><?php print_r($atividade['nome'])?></td>
+          <td ><?php print_r($atividade['dataCadastro'])?></td>
+          <td ><?php print_r($atividade['dataFim'])?></td>
+          <td id=  >
+          <?php print_r($atividade['status'])?> 
+           
+             </td>
+              </tr>
+
+        </tbody>
+         <?php }?>
+       </div>
+      </table>  
+
+      </div>   
+    </div>
+     
+      
+    </div>

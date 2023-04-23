@@ -1,0 +1,174 @@
+     <header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        
+        <a class="navbar-brand" href="/homeP"><img src="img/internet.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="textoNavbar">
+         <ul class="navbar-nav mr-auto">
+          
+           <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diário</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/diario?pesquisarPor=recuperar">Realizar frequência</a>
+            <a class="dropdown-item" href="/frequenciaP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+          
+          
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conteúdo</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/conteudo?pesquisarPor=recuperar">Cadastrar conteúdo</a>
+               <a class="dropdown-item" href="/visualizarConteudo?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Atividade</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/novaAtividade">Cadastrar atividade</a>
+                <a class="dropdown-item" href="/consultar?acao=recuperar">Consultar</a> 
+              </div>
+            </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Observação</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/observacao?pesquisarPor=recuperar">Realizar observação</a>
+            <a class="dropdown-item" href="/observacaoConsultarP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicar</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/comunicarP?pesquisarPor=recuperar">Realizar</a>
+          </li>
+
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicados</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/comunicadosP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php print_r($this->view->nomePr['nome']) ?></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Professor</a>
+              <a class="dropdown-item" href="/">Sair</a> 
+            </div>
+          </li>
+        </ul>        
+      </div>
+    </div>    
+  </nav>
+</header>
+<div class="container table-responsive" style="margin-top: 1px">
+  
+ <h4>Frequência</h4>
+ <hr/>
+    <form method="get" action="/diario" >
+      <div class="form-group">
+        <label class="labelM">Turma</label>
+
+        <select class="form-control custom-select-sm"  name="pesquisarPor" >
+          <option value="" disabled selected>Selecione uma turma.</option>
+            <?php foreach ($this->view->turmas as $turma) { ?>
+          <option  value="<?php print_r($turma['idTurma'])?>"><?php print_r($turma['serie'])?></option>
+          <?php }?>
+
+        </select>
+
+        <input class="btn btn-primary" value="Selecione"  type="submit" style="margin-top: 5px">
+
+      </div>
+    </form>
+    <div class="form-group">
+
+    <form method="post"  action="/diario?pesquisarPor=inserir" >
+
+       
+  <input type="hidden" name="Turma_idTurma" value="<?php print_r($_GET['pesquisarPor']) ;?>"></input>
+        
+    
+ <table class=" table table-sm  table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th scope="col">Matrícula</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Presença</th>
+      <th scope="col">Data</th>
+    </tr>
+  </thead>
+
+    <?php
+      foreach ($this->view->frequencias as $presenca) { ?>
+  <tbody>
+    <tr style="text-align:center;">
+      <td  class="numero"></td>
+      <td  ><label ><?php print_r($presenca['matricula'])?></label></td>
+      <td ><input type="hidden" value="<?php print_r($presenca['Aluno_idAluno'])?>" name="Aluno_idAluno"><?php print_r($presenca['nome'])?></td>
+      <td >
+    <select class="form-control custom-select-sm" name="presenca" >
+          <option value="1" >Presente</option>
+          <option  value="0">Ausente</option>
+        </select>
+      </td>
+
+      <td > <input name="data" type="date"  value="2021-06-10" ></td>
+    </tr>
+  </tbody>
+<?php 
+  }?>
+</table>
+
+
+
+<input class="btn btn-primary" value="Salvar" type="submit">
+</form>
+
+
+</div>
+
+<form method="POST" action="testea" enctype="multipart/form-data">
+  <div class="form-group">
+    <label class="labelM" for="importarTurma">Importar turma:</label>
+    <input type="file" class="form-control-file" id="importarTurma" name="frequencia" accept="text/xml" />
+
+  </div>
+  <input class="btn btn-primary" value="Selecionar"  type="submit"  onclick="teste(frequencia)" >
+</form>
+</div>
+
+<script>
+  function formataData(data = new Date()) {
+  var dia = data.getDate();
+  var mes = data.getMonth()+1;
+  var ano = data.getFullYear();
+  if (dia.toString().length == 1) {dia = '0'+dia;}
+  if (mes.toString().length == 1) {mes = '0'+mes;}
+
+  return dia+'/'+ mes + '/' + ano;
+}
+console.log(formataData());
+
+var formatoPermitido = ".xml";
+
+function teste (pFormulario){
+  var nomearquivo = pFormulario.value;
+  if(pFormulario.type=="file"){
+  var tamanho = nomearquivo.length;
+  tamanho = tamanho -4;
+  var controle = nomearquivo.substr(tamanho,4);
+  if (controle == ".xml"){  
+    return true;
+  } else {
+
+  window.alert("FORMATO INVÁLIDO, SELECIONE UM ARQUIVO XML");
+
+  return false;
+
+
+  }
+  } 
+}
+
+
+</script>

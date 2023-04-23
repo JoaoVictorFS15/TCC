@@ -1,0 +1,58 @@
+
+
+
+		<header id="cabecalho">
+	
+		</header>
+
+		<div class="container">
+    		<div class="row">
+    			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+       				<div class="card card-signin my-5">
+       				    <div class="card-body">
+          				   	<h5 class="card-title text-center">Cadastro Responsável</h5>
+           					<form method="post" class="form-signin" action="/cadastro">
+                      <div class="form-label-group">
+                          <input type="text" value="<?php print_r($this->view->responsavel['nome'])?>" id="inputNome" class="form-control" placeholder="Nome" name="nome" required autofocus>
+                          <label for="inputNome">Nome</label>
+                      </div>
+             					<div class="form-label-group">
+               						<input type="text" id="cpf" class="form-control" value="<?php print_r($this->view->responsavel['cpf'])?>" placeholder="CPF" name="cpf" required >
+                          <label for="cpf">CPF Ex.:123.456.789-99</label>
+              					</div>
+
+                         <div class="form-label-group">
+                          <input type="email" id="inputE-mail" class="form-control" value="<?php print_r($this->view->responsavel['email'])?>" placeholder="E-mail" name="email" required autofocus>
+                          <label for="inputE-mail">E-mail</label>
+                      </div>
+                  
+                       <div class="form-label-group">
+                          <input type="text" id="inputMatriculaDoAluno" class="form-control" placeholder="Matricula do aluno" name="matricula" required autofocus>
+                          <label for="inputMatriculaDoAluno">Matricula do aluno</label>
+                      </div>
+                     
+                     <div class="form-label-group">
+                          <input type="text" id="inputDataNascimentoAluno" class="form-control" placeholder="Data de nascimento do aluno" name="dataNascimento" required autofocus>
+                          <label for="inputDataNascimentoAluno">Data de nascimento do aluno</label>
+                      </div>
+
+                      <div class="form-label-group">
+                        
+                          <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="senha" required>
+                           <label for="inputPassword">Senha com no minimo 5 caracteres</label>
+                      </div>
+
+              
+             					<button type="submit" class="btn btn-lg btn-primary btn-block text-uppercase">Registre-se </button>
+                      <a type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" name="Voltar" value="Voltar" onclick="window.location.href='/loginR'">Voltar </a>
+
+                         <?php if($this->view->erroCadastro){ ?>
+                          <small class="form-text text-danger">"Erro ao tentar realizar cadastro, verifique se os campos foram preenchidos corretamente."</small>
+                         <?php }?>
+
+              				</form>
+          				</div>
+        			</div>
+     			</div>
+   			</div>
+ 		</div>

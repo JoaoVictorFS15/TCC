@@ -1,0 +1,126 @@
+     <header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        
+        <a class="navbar-brand" href="/homeP"><img src="img/internet.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="textoNavbar">
+         <ul class="navbar-nav mr-auto">
+          
+           <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diário</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/diario?pesquisarPor=recuperar">Realizar frequência</a>
+            <a class="dropdown-item" href="/frequenciaP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+          
+          
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conteúdo</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/conteudo?pesquisarPor=recuperar">Cadastrar conteúdo</a>
+               <a class="dropdown-item" href="/visualizarConteudo?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Atividade</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/novaAtividade">Cadastrar atividade</a>
+                <a class="dropdown-item" href="/consultar?acao=recuperar">Consultar</a> 
+              </div>
+            </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Observação</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/observacao?pesquisarPor=recuperar">Realizar observação</a>
+            <a class="dropdown-item" href="/observacaoConsultarP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicar</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/comunicarP?pesquisarPor=recuperar">Realizar</a>
+          </li>
+
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicados</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/comunicadosP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php print_r($this->view->nomePr['nome']) ?></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Professor</a>
+              <a class="dropdown-item" href="/">Sair</a> 
+            </div>
+          </li>
+        </ul>        
+      </div>
+    </div>    
+  </nav>
+</header>
+
+<div class="col-md-12">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h4>Cadastrar Conteúdo</h4>
+        <hr/>
+        <form method="post" action="/conteudo?acao=inserir">
+          <div class="form-group">
+
+            <div class="row">
+              <div class="col">
+
+               <label class="labelM">Turma</label>
+
+               <select class="form-control "id="Professor_has_Turma_Turma_idTurma" name="Professor_has_Turma_Turma_idTurma"  >
+                <option value="" disabled selected>Selecione uma turma.</option>
+                  <?php foreach ($this->view->turmas as $turma) { ?>
+                  <option  value="<?php print_r ($turma['serie'])?>"><?php print_r($turma['serie'])?></option>
+                   <?php }?>
+               </select>
+              </select>
+            </div>
+
+            <div class="col">
+             <label class="labelM">Matéria</label>
+             <select class="form-control " id="materia" name="materia"  >
+              <option value="" disabled selected>Selecione uma matéria.</option>
+               <option value="Matemática">Matemática</option>
+               <option value="História">História</option>
+               <option value="Física">Física</option>
+               <option value="Português">Português</option>
+               <option value="Geografia">Geografia</option>
+               <option value="Química">Química</option>
+
+            </select>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col" >
+
+              <label class="labelM" for="descricao">Descrição</label>
+              <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+            </div>
+
+            <div class="col" >
+            <label class="labelM">Data</label>
+            <input class="form-control"  type="Date" name="data">
+          </div>
+        </div>
+          <input class="btn btn-primary" value="Cadastrar" name="cadastrar" onclick="cadastrar();" type="submit" style="margin-top: 5px">        
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script >
+  function cadastrar() {
+    alert ('Conteúdo cadastrado');
+  }
+</script>

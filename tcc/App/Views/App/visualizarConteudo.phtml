@@ -1,0 +1,121 @@
+    <script>
+      function mudarEstado(el){
+        var display = document.getElementById(el).style.display;
+        if (display == "none") {
+          document.getElementById(el).style.display = 'block';
+        }else {
+          document.getElementById(el).style.display = 'none';
+        }
+      }
+    </script>
+
+<?php
+ini_set('display_errors', 0 );
+error_reporting(0);
+?>
+
+         <header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        
+        <a class="navbar-brand" href="/homeP"><img src="img/internet.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="textoNavbar">
+         <ul class="navbar-nav mr-auto">
+          
+           <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diário</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/diario?pesquisarPor=recuperar">Realizar frequência</a>
+            <a class="dropdown-item" href="/frequenciaP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+          
+          
+          
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Conteúdo</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/conteudo?pesquisarPor=recuperar">Cadastrar conteúdo</a>
+               <a class="dropdown-item" href="/visualizarConteudo?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Atividade</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/novaAtividade">Cadastrar atividade</a>
+                <a class="dropdown-item" href="/consultar?acao=recuperar">Consultar</a> 
+              </div>
+            </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Observação</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/observacao?pesquisarPor=recuperar">Realizar observação</a>
+            <a class="dropdown-item" href="/observacaoConsultarP?pesquisarPor=recuperar">Consultar</a>
+          </li>
+
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicar</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/comunicarP?pesquisarPor=recuperar">Realizar</a>
+          </li>
+
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comunicados</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="comunicados.html">Consultar</a>
+          </li>
+          
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php print_r($this->view->nomePr['nome']) ?></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Professor</a>
+              <a class="dropdown-item" href="index.html">Sair</a> 
+            </div>
+          </li>
+        </ul>        
+      </div>
+    </div>    
+  </nav>
+</header>
+ <div class="container">
+    <h4>Conteúdo ministrado</h4>
+     <hr/>
+      <form method="get" action="/visualizarConteudo" >
+      <div >
+       
+        <label class="labelM">Turma</label>
+
+        <select class="form-control custom-select-sm" name="pesquisarPor"  >
+          <option value="" disabled selected>Selecione uma turma.</option>
+          <?php foreach ($this->view->turmas as $turma) { ?>
+          <option  value="<?php print_r ($turma['idTurma'])?>"><?php print_r($turma['serie'])?></option>
+          <?php }?>
+        </select>
+        <input class="btn btn-primary" value="Selecione" type="submit" onclick="mudarEstado('minhaDiv')" style="margin-top: 5px">
+        
+      </div>
+    
+</form>
+   <div class="table-responsive" style="margin-top: 5px ">
+    <h5>Conteúdo(s)</h5>
+    <table class=" table table-sm table-bordered"  style="margin-top: 10px">
+      <thead>
+       <tr style="text-align:center;">
+        <th scope="col">Matéria</th>
+        <th scope="col">Descrição</th>
+      </tr>
+    </thead>
+    <div style="display: none;" id="minhaDiv">
+     <?php foreach ($this->view->conteudos as $conteudo) {?>
+    <tbody>
+      <tr style="text-align:center;">
+      <td ><?php print_r($conteudo['materia'])?></td>
+      <td ><?php print_r($conteudo['descricao'])?></td>
+    </tr>
+    </tbody>
+  <?php }?>
+</div>
+  </table>
+</div>
+</div>
+</div> 
+</div>
